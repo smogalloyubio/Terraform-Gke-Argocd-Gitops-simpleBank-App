@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+
+.gemini/
+
+# Gemini CLI Infrastructure
+.github/commands/
+.github/workflows/gemini-*.yml
