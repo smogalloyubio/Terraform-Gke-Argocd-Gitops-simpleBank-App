@@ -24,7 +24,9 @@ public class TransactionController {
 
     // RestTemplate is used to communicate with the Account Microservice
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String ACCOUNT_SERVICE_URL = "http://localhost:8082/api/accounts";
+    private final String ACCOUNT_SERVICE_URL = System.getenv("ACCOUNT_SERVICE_URL") != null
+            ? System.getenv("ACCOUNT_SERVICE_URL")
+            : "http://localhost:8082/api/accounts";
 
     @PostMapping("/deposit")
     public ResponseEntity<?> deposit(@RequestBody Map<String, Object> payload) {
