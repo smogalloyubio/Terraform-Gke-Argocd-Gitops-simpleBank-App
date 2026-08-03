@@ -117,7 +117,7 @@ async function startServer() {
 
   // --- API Routes ---
 
-  // Auth/Login Route
+  // Auth/Login Routes
   app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
     const user = users.find((u) => u.email === email && u.password === password);
@@ -125,6 +125,20 @@ async function startServer() {
       return res.status(401).json({ message: "Invalid email or password" });
     }
     // Find associated accounts
+    const userAccounts = accounts.filter((a) => a.userId === user.id);
+    const { password: _, ...userWithoutPassword } = user;
+    res.json({
+      user: userWithoutPassword,
+      accounts: userAccounts,
+    });
+  });
+
+  app.post("/api/users/login", (req, res) => {
+    const { email, password } = req.body;
+    const user = users.find((u) => u.email === email && u.password === password);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
     const userAccounts = accounts.filter((a) => a.userId === user.id);
     const { password: _, ...userWithoutPassword } = user;
     res.json({

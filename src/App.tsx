@@ -34,7 +34,7 @@ export default function App() {
   const refreshAccounts = async () => {
     if (!user) return;
     try {
-      const response = await axios.get(`${API_CONFIG.ACCOUNT_SERVICE}/api/accounts/user/${user.id}`);
+      const response = await axios.get(`${API_CONFIG.USER_SERVICE}/api/users/${user.id}/accounts`);
       const updatedAccounts = response.data;
       setAccounts(updatedAccounts);
       // Maintain selected account reference updated
